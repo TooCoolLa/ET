@@ -160,6 +160,9 @@ namespace ET
         }
     }
 
+    /// <summary>
+    /// 客户端用于等待服务器的某种消息用的组件
+    /// </summary>
     [ComponentOf]
     public class ObjectWait: Entity, IAwake, IDestroy
     {

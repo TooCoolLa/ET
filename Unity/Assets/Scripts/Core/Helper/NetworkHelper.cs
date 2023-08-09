@@ -9,6 +9,10 @@ namespace ET
 {
 	public static class NetworkHelper
 	{
+		/// <summary>
+		/// 获取本机的ip
+		/// </summary>
+		/// <returns></returns>
 		public static string[] GetAddressIPs()
 		{
 			List<string> list = new List<string>();

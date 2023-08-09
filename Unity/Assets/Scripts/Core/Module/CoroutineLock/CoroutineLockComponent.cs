@@ -3,9 +3,13 @@ using System.Collections.Generic;
 
 namespace ET
 {
+    /// <summary>
+    /// 协程锁管理组件
+    /// </summary>
     public class CoroutineLockComponent: Singleton<CoroutineLockComponent>, ISingletonUpdate
     {
         private readonly List<CoroutineLockQueueType> list = new List<CoroutineLockQueueType>(CoroutineLockType.Max);
+        //一帧内要notify的协程锁的队列
         private readonly Queue<(int, long, int)> nextFrameRun = new Queue<(int, long, int)>();
 
         public CoroutineLockComponent()
@@ -36,7 +40,7 @@ namespace ET
         public void RunNextCoroutine(int coroutineLockType, long key, int level)
         {
             // 一个协程队列一帧处理超过100个,说明比较多了,打个warning,检查一下是否够正常
-            if (level == 100)
+            if (level >= 100)
             {
                 Log.Warning($"too much coroutine level: {coroutineLockType} {key}");
             }
@@ -49,7 +53,12 @@ namespace ET
             CoroutineLockQueueType coroutineLockQueueType = this.list[coroutineLockType];
             return await coroutineLockQueueType.Wait(key, time);
         }
-
+        /// <summary>
+        /// 通知对应协程锁类型，有key与level的协程锁加入
+        /// </summary>
+        /// <param name="coroutineLockType"></param>
+        /// <param name="key"></param>
+        /// <param name="level"></param>
         private void Notify(int coroutineLockType, long key, int level)
         {
             CoroutineLockQueueType coroutineLockQueueType = this.list[coroutineLockType];

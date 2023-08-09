@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace ET
 {
+    /// <summary>
+    /// 协程锁队列
+    /// </summary>
     public class CoroutineLockQueue
     {
         private int type;
@@ -15,9 +18,13 @@ namespace ET
             coroutineLockQueue.key = key;
             return coroutineLockQueue;
         }
-
+        /// <summary>
+        /// 当前协程锁
+        /// </summary>
         private CoroutineLock currentCoroutineLock;
-        
+        /// <summary>
+        /// 等待协程锁队列
+        /// </summary>
         private readonly Queue<WaitCoroutineLock> queue = new Queue<WaitCoroutineLock>();
 
         public int Count
@@ -27,17 +34,24 @@ namespace ET
                 return this.queue.Count;
             }
         }
-
+        /// <summary>
+        /// 等待方法
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
         public async ETTask<CoroutineLock> Wait(int time)
         {
+            //如果当前没有协程锁，则创建一个，从1开始
             if (this.currentCoroutineLock == null)
             {
                 this.currentCoroutineLock = CoroutineLock.Create(type, key, 1);
                 return this.currentCoroutineLock;
             }
-
+            //创建一个等待协程锁
             WaitCoroutineLock waitCoroutineLock = WaitCoroutineLock.Create();
+            //等待协程锁队列入列
             this.queue.Enqueue(waitCoroutineLock);
+            //在waitCoroutineLock对象上创建一个计时器，
             if (time > 0)
             {
                 long tillTime = TimeHelper.ClientFrameTime() + time;
