@@ -3,6 +3,7 @@ using System.IO;
 
 namespace ET.Client
 {
+    //客户端更新锁帧逻辑
     [EntitySystemOf(typeof(LSClientUpdater))]
     [FriendOf(typeof (LSClientUpdater))]
     public static partial class LSClientUpdaterSystem
@@ -24,6 +25,7 @@ namespace ET.Client
             int i = 0;
             while (true)
             {
+                //如果预测帧的下一帧时间将大于服务器当前时间
                 if (timeNow < room.FixedTimeCounter.FrameTime(room.PredictionFrame + 1))
                 {
                     return;
@@ -34,7 +36,7 @@ namespace ET.Client
                 {
                     return;
                 }
-
+                
                 ++room.PredictionFrame;
                 OneFrameInputs oneFrameInputs = self.GetOneFrameMessages(room.PredictionFrame);
                 
@@ -55,7 +57,12 @@ namespace ET.Client
                 }
             }
         }
-
+        /// <summary>
+        /// 获取预测帧的玩家输入
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="frame"></param>
+        /// <returns></returns>
         private static OneFrameInputs GetOneFrameMessages(this LSClientUpdater self, int frame)
         {
             Room room = self.GetParent<Room>();
@@ -68,13 +75,14 @@ namespace ET.Client
             
             // predict
             OneFrameInputs predictionFrame = frameBuffer.FrameInputs(frame);
-            
+            //把最近的一帧权威帧的其他玩家的输入拷贝给预测帧
             frameBuffer.MoveForward(frame);
             if (frameBuffer.CheckFrame(room.AuthorityFrame))
             {
                 OneFrameInputs authorityFrame = frameBuffer.FrameInputs(room.AuthorityFrame);
                 authorityFrame.CopyTo(predictionFrame);
             }
+            //更新预测帧里的自己的输入
             predictionFrame.Inputs[self.MyId] = self.Input;
             
             return predictionFrame;

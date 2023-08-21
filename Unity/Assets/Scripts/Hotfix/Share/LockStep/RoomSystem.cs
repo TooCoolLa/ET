@@ -62,7 +62,10 @@ namespace ET
             memoryBuffer.Seek(0, SeekOrigin.Begin);
             return lsWorld;
         }
-
+        /// <summary>
+        /// 将Room的当前LSWorld保存到帧缓冲区的快照里面
+        /// </summary>
+        /// <param name="self"></param>
         private static void SaveLSWorld(this Room self)
         {
             int frame = self.LSWorld.Frame;
@@ -79,6 +82,11 @@ namespace ET
         }
 
         // 记录需要存档的数据
+        /// <summary>
+        /// 将此帧的输入以及快照保存到Replay里面
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="frame"></param>
         public static void Record(this Room self, int frame)
         {
             if (frame > self.AuthorityFrame)

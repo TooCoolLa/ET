@@ -1,5 +1,8 @@
 ﻿namespace ET.Client
 {
+    /// <summary>
+    /// 收到重连消息
+    /// </summary>
     [MessageHandler(SceneType.LockStep)]
     public class G2C_ReconnectHandler: MessageHandler<Scene, G2C_Reconnect>
     {

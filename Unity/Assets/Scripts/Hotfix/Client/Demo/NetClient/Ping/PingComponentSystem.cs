@@ -43,7 +43,7 @@ namespace ET.Client
 
                     long time2 = TimeInfo.Instance.ClientNow();
                     self.Ping = time2 - time1;
-                    
+                    //此时此刻，服务器的时间等于消息中的时间加上消息传递所用的时间
                     TimeInfo.Instance.ServerMinusClientTime = response.Time + (time2 - time1) / 2 - time2;
                     
                     await fiber.TimerComponent.WaitAsync(2000);

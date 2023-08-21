@@ -23,6 +23,9 @@ namespace ET
         private DateTime dt;
         
         // ping消息会设置该值，原子操作
+        /// <summary>
+        /// 每次ping消息会更新这个值
+        /// </summary>
         public long ServerMinusClientTime { private get; set; }
 
         public long FrameTime { get; private set; }
@@ -53,7 +56,10 @@ namespace ET
         {
             return (DateTime.UtcNow.Ticks - this.dt1970.Ticks) / 10000;
         }
-        
+        /// <summary>
+        /// 服务器当前时间
+        /// </summary>
+        /// <returns></returns>
         public long ServerNow()
         {
             return ClientNow() + this.ServerMinusClientTime;

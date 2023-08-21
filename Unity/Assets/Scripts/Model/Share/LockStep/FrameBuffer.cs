@@ -40,7 +40,11 @@ namespace ET
             EnsureFrame(frame);
             return this.hashs[frame % this.frameInputs.Capacity];
         }
-
+        /// <summary>
+        /// 检查输入帧是否有效
+        /// </summary>
+        /// <param name="frame"></param>
+        /// <returns></returns>
         public bool CheckFrame(int frame)
         {
             if (frame < 0)
@@ -55,7 +59,11 @@ namespace ET
 
             return true;
         }
-
+        /// <summary>
+        /// 检查一下输入帧的有效性，如果无效，则来个警告
+        /// </summary>
+        /// <param name="frame"></param>
+        /// <exception cref="Exception"></exception>
         private void EnsureFrame(int frame)
         {
             if (!CheckFrame(frame))
@@ -63,14 +71,21 @@ namespace ET
                 throw new Exception($"frame out: {frame}, maxframe: {this.MaxFrame}");
             }
         }
-        
+        /// <summary>
+        /// 获取输入帧的玩家输入情况
+        /// </summary>
+        /// <param name="frame"></param>
+        /// <returns></returns>
         public OneFrameInputs FrameInputs(int frame)
         {
             EnsureFrame(frame);
             OneFrameInputs oneFrameInputs = this.frameInputs[frame % this.frameInputs.Capacity];
             return oneFrameInputs;
         }
-
+        /// <summary>
+        /// 保持最大帧与输入帧至少差1秒，如果差值不足一秒，则最大帧自增，并且清空对应的帧输入
+        /// </summary>
+        /// <param name="frame"></param>
         public void MoveForward(int frame)
         {
             if (this.MaxFrame - frame > LSConstValue.FrameCountPerSecond) // 至少留出1秒的空间
