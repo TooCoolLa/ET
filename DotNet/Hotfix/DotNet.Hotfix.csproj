@@ -40,5 +40,13 @@
         <ProjectReference Include="..\Loader\DotNet.Loader.csproj" />
         <ProjectReference Include="..\Model\DotNet.Model.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="..\..\Unity\Assets\Scripts\Codes\Hotfix\Client\StateSync">
+        <Link>Client\StateSync</Link>
+      </Folder>
+      <Folder Include="..\..\Unity\Assets\Scripts\Codes\Hotfix\Server\StateSync">
+        <Link>Server\StateSync</Link>
+      </Folder>
+    </ItemGroup>
 
 </Project>
