@@ -20,7 +20,11 @@ namespace ET.Server
             removeUnits.Units.Add(sendUnit.Id);
             MessageHelper.SendToClient(unit, removeUnits);
         }
-        
+        /// <summary>
+        /// unit的里面的所有aoientity发送一条消息
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <param name="message"></param>
         public static void Broadcast(Unit unit, IActorMessage message)
         {
             Dictionary<long, AOIEntity> dict = unit.GetBeSeePlayers();

@@ -15,7 +15,9 @@ namespace ET
             waitCoroutineLock.SetException(new Exception("coroutine is timeout!"));
         }
     }
-    
+    /// <summary>
+    /// 等待协程锁类型
+    /// </summary>
     public class WaitCoroutineLock
     {
         public static WaitCoroutineLock Create()
