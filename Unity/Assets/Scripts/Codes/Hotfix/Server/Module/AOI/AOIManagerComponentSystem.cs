@@ -7,6 +7,13 @@ namespace ET.Server
     [FriendOf(typeof(Cell))]
     public static class AOIManagerComponentSystem
     {
+        /// <summary>
+        /// 将AOIEntity添加到AOIManager里面去
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="aoiEntity"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public static void Add(this AOIManagerComponent self, AOIEntity aoiEntity, float x, float y)
         {
             int cellX = (int)(x * 1000) / AOIManagerComponent.CellSize;

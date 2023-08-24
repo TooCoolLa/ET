@@ -10,6 +10,12 @@ namespace ET.Server
         [ObjectSystem]
         public class AwakeSystem: AwakeSystem<AOIEntity, int, float3>
         {
+            /// <summary>
+            /// 每个AOIEntity在Awake的时候将自己添加到当前Map服务器的AOIEntity里
+            /// </summary>
+            /// <param name="self"></param>
+            /// <param name="distance"></param>
+            /// <param name="pos"></param>
             protected override void Awake(AOIEntity self, int distance, float3 pos)
             {
                 self.ViewDistance = distance;

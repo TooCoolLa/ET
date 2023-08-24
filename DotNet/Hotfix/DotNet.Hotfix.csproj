@@ -41,11 +41,14 @@
         <ProjectReference Include="..\Model\DotNet.Model.csproj" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="..\..\Unity\Assets\Scripts\Codes\Hotfix\Client\StateSync">
-        <Link>Client\StateSync</Link>
+      <Folder Include="..\..\Unity\Assets\Scripts\Codes\Hotfix\Client\Demo\StateSync\">
+        <Link>Client\Demo\StateSync</Link>
       </Folder>
-      <Folder Include="..\..\Unity\Assets\Scripts\Codes\Hotfix\Server\StateSync">
-        <Link>Server\StateSync</Link>
+      <Folder Include="..\..\Unity\Assets\Scripts\Codes\Hotfix\Server\Demo\StateSync\">
+        <Link>Server\Demo\StateSync</Link>
+      </Folder>
+      <Folder Include="..\..\Unity\Assets\Scripts\Codes\Hotfix\Share\StateSync\">
+        <Link>Share\StateSync</Link>
       </Folder>
     </ItemGroup>
 
