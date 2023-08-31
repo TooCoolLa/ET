@@ -17,7 +17,7 @@ namespace ET.Client
 			
 
             currentScene.AddComponent<OperaComponent>();
-            var input =  currentScene.AddComponent<MoveByInput>();
+            
             
         }
     }

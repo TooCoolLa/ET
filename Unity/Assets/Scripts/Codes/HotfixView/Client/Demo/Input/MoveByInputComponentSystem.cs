@@ -23,9 +23,13 @@ namespace ET.Client
                 self.Input = new float2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
                 //self.
                 var myUnit = UnitHelper.GetMyUnitFromClientScene(self.DomainScene());
-                myUnit.TargetRotation = Camera.main.transform.rotation;
-                
-                myUnit.Position += math.mul(myUnit.TargetRotation, math.forward()) *  new float3(self.Input.x * self.moveSpeed, 0, self.Input.y * self.moveSpeed);
+                if(myUnit != null)
+                {
+                    myUnit.TargetRotation = Camera.main.transform.rotation;
+
+                    //myUnit.Position += math.mul(myUnit.TargetRotation,  new float3(self.Input.x * self.moveSpeed, 0, self.Input.y * self.moveSpeed) * Time.fixedDeltaTime);
+                    myUnit.Position += new float3(self.Input.x * self.moveSpeed, 0, self.Input.y * self.moveSpeed) * Time.fixedDeltaTime;
+                }
             }
         }
     }
