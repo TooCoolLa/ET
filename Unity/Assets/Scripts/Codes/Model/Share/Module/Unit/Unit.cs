@@ -31,6 +31,9 @@ namespace ET
         }
 
         [BsonIgnore]
+        public quaternion TargetRotation { get; set; }
+
+        [BsonIgnore]
         public float3 Forward
         {
             get => math.mul(this.Rotation, math.forward());

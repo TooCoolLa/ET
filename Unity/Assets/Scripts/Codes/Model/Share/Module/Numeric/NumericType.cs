@@ -5,7 +5,8 @@
     {
 	    public const int Max = 10000;
 
-	    public const int Speed = 1000;
+	    public const int 
+			    Speed = 1000;
 	    public const int SpeedBase = Speed * 10 + 1;
 	    public const int SpeedAdd = Speed * 10 + 2;
 	    public const int SpeedPct = Speed * 10 + 3;

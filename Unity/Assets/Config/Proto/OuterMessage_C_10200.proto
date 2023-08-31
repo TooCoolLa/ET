@@ -1,0 +1,17 @@
+syntax = "proto3";
+package ET;
+
+message C2M_StateSync //IActorMessage
+{
+    StateInfo StateInfo = 1;
+}
+message M2C_StateSync
+{
+    StateInfo StateInfo = 1;
+}
+message StateInfo
+{
+    Unity.Mathematics.quaternion Rotation = 1;
+    Unity.Mathematics.float3 Position = 2;
+
+}
