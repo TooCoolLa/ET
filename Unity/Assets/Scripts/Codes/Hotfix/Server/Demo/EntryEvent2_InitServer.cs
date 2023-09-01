@@ -18,7 +18,8 @@ namespace ET.Server
             Root.Instance.Scene.AddComponent<RobotCaseComponent>();
 
             Root.Instance.Scene.AddComponent<NavmeshComponent>();
-
+            //都在一块启动的话，则直接添加一个DBManager,ET7藏代码
+            Root.Instance.Scene.AddComponent<DBManagerComponent>();
             StartProcessConfig processConfig = StartProcessConfigCategory.Instance.Get(Options.Instance.Process);
             switch (Options.Instance.AppType)
             {

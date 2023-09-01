@@ -28,6 +28,7 @@ namespace ET.Server
                     break;
                 case SceneType.Realm:
                     scene.AddComponent<NetServerComponent, IPEndPoint>(startSceneConfig.InnerIPOutPort);
+                    //scene.AddComponent<DBManagerComponent>();
                     break;
                 case SceneType.Gate:
                     scene.AddComponent<NetServerComponent, IPEndPoint>(startSceneConfig.InnerIPOutPort);
@@ -51,6 +52,9 @@ namespace ET.Server
                 case SceneType.BenchmarkClient:
                     scene.AddComponent<BenchmarkClientComponent>();
                     break;
+                // case SceneType.DB:
+                //     scene.AddComponent(typeof(DBManagerComponent));
+                //     break;
             }
 
             return scene;

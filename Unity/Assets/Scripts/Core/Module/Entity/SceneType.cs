@@ -16,7 +16,7 @@
 		BenchmarkClient = 10,
 		BenchmarkServer = 11,
 		Benchmark = 12,
-
+		DB=13,
 		// 客户端Model层
 		Client = 31,
 		Current = 34,

@@ -53,6 +53,7 @@ namespace ET.Client
         }
     }
 
+ 
     [ObjectSystem]
     public class PingComponentDestroySystem: DestroySystem<PingComponent>
     {
