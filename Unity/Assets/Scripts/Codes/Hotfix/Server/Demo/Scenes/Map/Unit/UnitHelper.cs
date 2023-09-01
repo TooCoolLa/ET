@@ -41,7 +41,18 @@ namespace ET.Server
 
             return unitInfo;
         }
-        
+        /// <summary>
+        /// 玩家断线
+        /// </summary>
+        /// <param name="unit"></param>
+        public static void UnitDisconnect(Unit unit)
+        {
+            var scene = unit.DomainScene();
+            var unitComponent = scene.GetComponent<UnitComponent>();
+            unitComponent.Remove(unit.Id);
+            unit.Dispose();
+            
+        }
         // 获取看见unit的玩家，主要用于广播
         public static Dictionary<long, AOIEntity> GetBeSeePlayers(this Unit self)
         {
