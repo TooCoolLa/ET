@@ -1,17 +1,28 @@
 syntax = "proto3";
 package ET;
 
-message C2M_StateSync //IActorMessage
+message StateInfo 
 {
-    StateInfo StateInfo = 1;
+	Unity.Mathematics.float3 Position = 1;
+	Unity.Mathematics.quaternion Rotation = 2;
+	int64 UnitID = 3;
+    UnitDesc unitDesc = 4;
 }
-message M2C_StateSync
+message UnitDesc
 {
-    StateInfo StateInfo = 1;
+    int32 ConfigID = 1;
 }
-message StateInfo
+//ResponseType M2C_Snapshot
+message C2M_StateSync // IActorLocationRequest
 {
-    Unity.Mathematics.quaternion Rotation = 1;
-    Unity.Mathematics.float3 Position = 2;
-
+		int32 RpcId = 1;
+		StateInfo MyState = 2;
+}
+message M2C_Snapshot // IActorLocationResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+    string Message = 3;
+	StateInfo MyState = 4;
+	repeated StateInfo OtherUnits = 5;
 }

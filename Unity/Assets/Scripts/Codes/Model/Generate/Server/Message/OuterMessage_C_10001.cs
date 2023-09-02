@@ -149,6 +149,9 @@ namespace ET
 		[ProtoMember(5)]
 		public Unity.Mathematics.float3 Forward { get; set; }
 
+		[ProtoMember(8)]
+		public Unity.Mathematics.quaternion Rotation { get; set; }
+
 		[MongoDB.Bson.Serialization.Attributes.BsonDictionaryOptions(MongoDB.Bson.Serialization.Options.DictionaryRepresentation.ArrayOfArrays)]
 		[ProtoMember(6)]
 		public Dictionary<int, long> KV { get; set; }
@@ -479,7 +482,7 @@ namespace ET
 
 	}
 
-	public static class OuterMessage
+	public static partial class OuterMessage
 	{
 		 public const ushort HttpGetRouterResponse = 10002;
 		 public const ushort RouterSync = 10003;

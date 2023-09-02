@@ -360,7 +360,7 @@ namespace ET
 
 	}
 
-	public static class InnerMessage
+	public static partial class InnerMessage
 	{
 		 public const ushort ObjectQueryRequest = 20002;
 		 public const ushort M2A_Reload = 20003;

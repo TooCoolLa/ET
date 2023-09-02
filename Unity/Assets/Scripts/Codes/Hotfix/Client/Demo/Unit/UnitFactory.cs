@@ -37,5 +37,38 @@ namespace ET.Client
 	        EventSystem.Instance.Publish(unit.DomainScene(), new EventType.AfterUnitCreate() {Unit = unit});
             return unit;
         }
+        public static Unit Create(Scene currentScene, StateInfo unitInfo)
+        {
+	        UnitComponent unitComponent = currentScene.GetComponent<UnitComponent>();
+	        Unit unit = unitComponent.AddChildWithId<Unit, int>(unitInfo.UnitID, unitInfo.unitDesc.ConfigID);
+	        unitComponent.Add(unit);
+	        
+	        unit.Position = unitInfo.Position;
+	        unit.Rotation = unitInfo.Rotation;
+	        
+	        //NumericComponent numericComponent = unit.AddComponent<NumericComponent>();
+
+	        // foreach (var kv in unitInfo.KV)
+	        // {
+		       //  numericComponent.Set(kv.Key, kv.Value);
+	        // }
+	        //
+	        // unit.AddComponent<MoveComponent>();
+	        // if (unitInfo.MoveInfo != null)
+	        // {
+		       //  if (unitInfo.MoveInfo.Points.Count > 0)
+		       //  {
+			      //   unitInfo.MoveInfo.Points[0] = unit.Position;
+			      //   unit.MoveToAsync(unitInfo.MoveInfo.Points).Coroutine();
+		       //  }
+	        // }
+	        //
+	        // unit.AddComponent<ObjectWait>();
+	        //
+	        // unit.AddComponent<XunLuoPathComponent>();
+	        
+	        EventSystem.Instance.Publish(unit.DomainScene(), new EventType.AfterUnitCreate() {Unit = unit});
+	        return unit;
+        }
     }
 }

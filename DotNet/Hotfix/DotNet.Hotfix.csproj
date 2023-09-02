@@ -33,7 +33,9 @@
 
         <Compile Include="..\..\Unity\Assets\Scripts\Codes\Hotfix\Share\**\*.cs">
             <Link>Share\%(RecursiveDir)%(FileName)%(Extension)</Link> 
-        </Compile> 
+        </Compile>
+
+        <Compile Remove="Server\**" /> 
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\Share\Analyzer\Share.Analyzer.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
@@ -50,6 +52,12 @@
       <Folder Include="..\..\Unity\Assets\Scripts\Codes\Hotfix\Share\StateSync\">
         <Link>Share\StateSync</Link>
       </Folder>
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Remove="Server\**" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Remove="Server\**" />
     </ItemGroup>
 
 </Project>

@@ -71,6 +71,7 @@ message UnitInfo
 	int32 Type = 3;
 	Unity.Mathematics.float3 Position = 4;
 	Unity.Mathematics.float3 Forward = 5;
+	Unity.Mathematics.quaternion Rotation = 8;
 	map<int32, int64> KV = 6;
 	MoveInfo MoveInfo = 7;
 }
@@ -234,10 +235,4 @@ message G2C_Benchmark // IResponse
 	int32 RpcId = 1;
 	int32 Error = 2;
 	string Message = 3;
-}
-
-message StateInfo
-{
-	Unity.Mathematics.float3 Position = 1;
-	Unity.Mathematics.quaternion Rotation = 2;
 }
