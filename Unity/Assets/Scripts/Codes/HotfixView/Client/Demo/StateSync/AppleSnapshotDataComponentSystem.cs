@@ -17,10 +17,12 @@ namespace ET.Client
             protected override void Update(ApplySnapshotDataComponent self)
             {
                 var snapshort = self.Snapshot;
-                UnitComponent unitComponent = self.DomainScene().GetComponent<UnitComponent>();
+                UnitComponent unitComponent = self.DomainScene().CurrentScene().GetComponent<UnitComponent>();
                 if (snapshort != null && snapshort.OtherUnits != null && snapshort.OtherUnits.Count > 0)
                     foreach (var stateInfo in snapshort.OtherUnits)
                     {
+                        if(stateInfo.UnitID == self.myUnitID)
+                            continue;
                         Unit unit = unitComponent.Get(stateInfo.UnitID);
                         if (unit != null)
                         {
@@ -35,9 +37,10 @@ namespace ET.Client
             }
         }
 
-        public static void SetSnapshotData(this ApplySnapshotDataComponent self, M2C_Snapshot snapshot)
+        public static void SetSnapshotData(this ApplySnapshotDataComponent self, M2C_Snapshot snapshot,long myUnitID)
         {
             self.Snapshot = snapshot;
+            self.myUnitID = myUnitID;
         }
     }
 }
