@@ -38,16 +38,8 @@ namespace ET.Client
                             Unit unit = unitComponent.Get(stateInfo.UnitID);
                             if (unit != null)
                             {
-                                if (self.StateBuff != null && self.StateBuff.TryGetValue(unit.Id, out var oldStateInfo))
-                                {
-                                    unit.Position = math.lerp(oldStateInfo.Position, stateInfo.Position, ratio);
-                                    unit.Rotation = math.slerp(oldStateInfo.Rotation, stateInfo.Rotation, ratio);
-                                }
-                                else
-                                {
-                                    unit.Position = stateInfo.Position;
-                                    unit.Rotation = stateInfo.Rotation;
-                                }
+                                unit.Position = stateInfo.Position + new float3(stateInfo.Input.x * self.moveSpeed, 0, stateInfo.Input.y * stateInfo.moveSpeed) * Time.deltaTime;
+                                unit.Rotation = stateInfo.Rotation;
                             }
                             else
                             {
@@ -57,34 +49,10 @@ namespace ET.Client
                         Logger.Instance.Debug($"插值到最新状态{ratio}");
                         self.inPredict = false;
                     }
-                    //根据输入执行一下预测,预测最多不超过10帧
-                    // else
-                    // {
-                    //     foreach (var kv in snapshort.OtherUnits)
-                    //     {
-                    //         var stateInfo = kv.Value;
-                    //         if (stateInfo.UnitID == self.myUnitID)
-                    //             continue;
-                    //         Unit unit = unitComponent.Get(stateInfo.UnitID);
-                    //         if (unit == null)
-                    //         {
-                    //             unit = UnitFactory.Create(self.DomainScene(), stateInfo);
-                    //         }
-                    //         if(unit != null)
-                    //         {
-                    //             unit.Position += new float3(stateInfo.Input.x * self.moveSpeed, 0, stateInfo.Input.y * self.moveSpeed) *
-                    //                     Time.fixedDeltaTime;
-                    //             stateInfo.CopyUnit2StateInfo(unit);
-                    //             self.StateBuff[unit.Id] = stateInfo;
-                    //         }
-                    //     }
-                    //     Logger.Instance.Debug($"执行预测");
-                    //     self.inPredict = true;
-                    //     
-                    // }
                 }
             }
 
+            
         }
             public static void CopyUnit2StateInfo(this StateInfo self, Unit unit)
             {
@@ -106,6 +74,7 @@ namespace ET.Client
             self.AuthFrameCount = Time.frameCount;
             //self.StartFrameCount = self.AuthFrameCount;
             Logger.Instance.Debug($"<color=green>当前帧间隔为{self.FrameInterval}</color>");
+            self.ApplySnapShotImmediately(snapshot,self.DomainScene().CurrentScene().GetComponent<UnitComponent>());
         }
 
         public static StateInfo GetStateInfoFromBuffer(this StateInfo[] buffer, int startFrame, int nowFrameCount)
@@ -115,6 +84,36 @@ namespace ET.Client
         public static void SetStateInfoFromBuffer(this StateInfo[] buffer, StateInfo frame,int startFrame, int nowFrameCount)
         {
              buffer[Mathf.Max(0,nowFrameCount - startFrame) % buffer.Length] = frame;
+        }
+        public static void ApplySnapShotImmediately(this ApplySnapshotDataComponent self, M2C_Snapshot snapshort, UnitComponent unitComponent)
+        {
+            if(snapshort.OtherUnits != null && snapshort.OtherUnits.Count > 0)
+            foreach (var kv in snapshort.OtherUnits)
+            {
+                var stateInfo = kv.Value;
+                if (stateInfo.UnitID == self.myUnitID)
+                    continue;
+                Unit unit = unitComponent.Get(stateInfo.UnitID);
+                if (unit != null)
+                {
+                    // if (self.StateBuff != null && self.StateBuff.TryGetValue(unit.Id, out var oldStateInfo))
+                    // {
+                    //     unit.Position = math.lerp(oldStateInfo.Position, stateInfo.Position, ratio);
+                    //     unit.Rotation = math.slerp(oldStateInfo.Rotation, stateInfo.Rotation, ratio);
+                    // }
+                    // else
+                    // {
+                    //     unit.Position = stateInfo.Position;
+                    //     unit.Rotation = stateInfo.Rotation;
+                    // }
+                    unit.Position = stateInfo.Position;
+                    unit.Rotation = stateInfo.Rotation;
+                }
+                else
+                {
+                    unit = UnitFactory.Create(self.DomainScene(), stateInfo);
+                }
+            }
         }
     }
 }

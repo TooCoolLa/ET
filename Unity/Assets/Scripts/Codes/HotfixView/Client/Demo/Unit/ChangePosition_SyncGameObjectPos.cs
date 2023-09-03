@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Mathematics;
+using UnityEngine;
 
 namespace ET.Client
 {
@@ -14,7 +15,7 @@ namespace ET.Client
                 return;
             }
             Transform transform = gameObjectComponent.GameObject.transform;
-            transform.position = unit.Position;
+            transform.position = math.lerp(transform.position,unit.Position,Time.deltaTime * gameObjectComponent.LerpRatio);
             await ETTask.CompletedTask;
         }
     }

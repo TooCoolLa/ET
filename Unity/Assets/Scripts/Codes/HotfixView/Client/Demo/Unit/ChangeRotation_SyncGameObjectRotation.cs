@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace ET.Client
@@ -14,7 +15,7 @@ namespace ET.Client
                 return;
             }
             Transform transform = gameObjectComponent.GameObject.transform;
-            transform.rotation = unit.Rotation;
+            transform.rotation = math.slerp(transform.rotation,unit.Rotation,Time.deltaTime * gameObjectComponent.LerpRatio) ;
             await ETTask.CompletedTask;
         }
     }
