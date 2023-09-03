@@ -7,6 +7,8 @@
 		{
 			// 通知场景切换协程继续往下走
 			session.DomainScene().GetComponent<ObjectWait>().Notify(new Wait_CreateMyUnit() {Message = message});
+			session.DomainScene().ClientScene().AddComponent<StateSyncComponent>();
+			session.DomainScene().ClientScene().AddComponent<ApplySnapshotDataComponent>();
 			await ETTask.CompletedTask;
 		}
 	}

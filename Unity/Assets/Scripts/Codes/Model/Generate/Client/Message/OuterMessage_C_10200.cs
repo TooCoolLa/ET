@@ -19,6 +19,12 @@ namespace ET
 		[ProtoMember(4)]
 		public UnitDesc unitDesc { get; set; }
 
+		[ProtoMember(5)]
+		public Unity.Mathematics.float2 Input { get; set; }
+
+		[ProtoMember(6)]
+		public float moveSpeed { get; set; }
+
 	}
 
 	[Message(OuterMessage.UnitDesc)]
@@ -59,9 +65,9 @@ namespace ET
 		[ProtoMember(4)]
 		public StateInfo MyState { get; set; }
 
+		[MongoDB.Bson.Serialization.Attributes.BsonDictionaryOptions(MongoDB.Bson.Serialization.Options.DictionaryRepresentation.ArrayOfArrays)]
 		[ProtoMember(5)]
-		public List<StateInfo> OtherUnits { get; set; }
-
+		public Dictionary<long, StateInfo> OtherUnits { get; set; }
 	}
 
 	public static partial class OuterMessage

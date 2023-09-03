@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Mathematics;
 
 namespace ET.Server
 {
@@ -9,26 +11,33 @@ namespace ET.Server
         {
             unit.Position = request.MyState.Position;
             unit.Rotation = request.MyState.Rotation;
+            NumericComponent numericComponent = unit.GetComponent<NumericComponent>();
+            numericComponent.Set(NumericType.MoveSpeed,request.MyState.moveSpeed);
+            numericComponent.Set(NumericType.InputX,request.MyState.Input.x);
+            numericComponent.Set(NumericType.InputY,request.MyState.Input.y);
             AOIEntity aoiEntity = unit.GetComponent<AOIEntity>();
             response.MyState = request.MyState;
-            List<StateInfo> otherUnits = new List<StateInfo>();
+            response.OtherUnits = new Dictionary<long, StateInfo>();
             var seeplayer = aoiEntity.GetSeePlayers();
             if (seeplayer != null && seeplayer.Count > 0)
                 foreach (var kv in seeplayer)
                 {
-                    if(kv.Key == unit.Id)
+                    //剔除自己
+                    if (kv.Key == unit.Id)
                         continue;
                     var player = kv.Value;
-                    otherUnits.Add(new StateInfo()
+                    NumericComponent otherNumc = player.Unit.GetComponent<NumericComponent>();
+                    float2 input = new float2(otherNumc.GetAsFloat(NumericType.InputX), otherNumc.GetAsFloat(NumericType.InputY));
+                    response.OtherUnits[player.Unit.Id] = new StateInfo()
                     {
                         UnitID = player.Unit.Id,
                         Position = player.Unit.Position,
                         Rotation = player.Unit.Rotation,
-                        unitDesc = new UnitDesc() { ConfigID = player.Unit.ConfigId }
-                    });
+                        unitDesc = new UnitDesc() { ConfigID = player.Unit.ConfigId },
+                        moveSpeed = otherNumc.GetAsFloat(NumericType.MoveSpeed),
+                        Input = input
+                    };
                 }
-
-            response.OtherUnits = otherUnits;
             await ETTask.CompletedTask;
         }
     }

@@ -32,5 +32,7 @@ namespace ET.Client
                 }
             }
         }
+
+        public static float2 GetInput(this MoveByInput self) => self.Input;
     }
 }

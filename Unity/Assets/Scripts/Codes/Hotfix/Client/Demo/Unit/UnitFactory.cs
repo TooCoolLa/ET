@@ -40,6 +40,8 @@ namespace ET.Client
         public static Unit Create(Scene currentScene, StateInfo unitInfo)
         {
 	        UnitComponent unitComponent = currentScene.GetComponent<UnitComponent>();
+	        if (unitComponent == null)
+		        return null;
 	        Unit unit = unitComponent.AddChildWithId<Unit, int>(unitInfo.UnitID, unitInfo.unitDesc.ConfigID);
 	        unitComponent.Add(unit);
 	        

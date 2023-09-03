@@ -7,6 +7,8 @@ message StateInfo
 	Unity.Mathematics.quaternion Rotation = 2;
 	int64 UnitID = 3;
     UnitDesc unitDesc = 4;
+	Unity.Mathematics.float2 Input = 5;
+	float moveSpeed = 6;
 }
 message UnitDesc
 {
@@ -24,5 +26,5 @@ message M2C_Snapshot // IActorLocationResponse
 	int32 Error = 2;
     string Message = 3;
 	StateInfo MyState = 4;
-	repeated StateInfo OtherUnits = 5;
+	map<int64,StateInfo>  OtherUnits = 5;
 }

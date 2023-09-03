@@ -7,8 +7,7 @@
 		{
 			await SceneChangeHelper.SceneChangeTo(session.ClientScene(), message.SceneName, message.SceneInstanceId);
 			session.ClientScene().AddComponent<MoveByInput>();
-			session.ClientScene().AddComponent<StateSyncComponent>();
-			session.ClientScene().AddComponent<ApplySnapshotDataComponent>();
+			
 		}
 	}
 }

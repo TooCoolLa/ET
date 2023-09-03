@@ -29,5 +29,8 @@
 	    public const int AOIPct = AOI * 10 + 3;
 	    public const int AOIFinalAdd = AOI * 10 + 4;
 	    public const int AOIFinalPct = AOI * 10 + 5;
+	    public const int MoveSpeed = 2000;
+	    public const int InputX = 2001;
+	    public const int InputY = 2001;
     }
 }
