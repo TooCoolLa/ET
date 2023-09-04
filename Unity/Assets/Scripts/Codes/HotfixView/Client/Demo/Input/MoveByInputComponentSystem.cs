@@ -28,7 +28,7 @@ namespace ET.Client
                     myUnit.TargetRotation = Camera.main.transform.rotation;
 
                     //myUnit.Position += math.mul(myUnit.TargetRotation,  new float3(self.Input.x * self.moveSpeed, 0, self.Input.y * self.moveSpeed) * Time.fixedDeltaTime);
-                    myUnit.Position += new float3(self.Input.x * self.moveSpeed, 0, self.Input.y * self.moveSpeed) * Time.fixedDeltaTime;
+                    myUnit.Position += new float3(self.Input.x * self.moveSpeed, 0, self.Input.y * self.moveSpeed) * Time.deltaTime;
                 }
             }
         }
