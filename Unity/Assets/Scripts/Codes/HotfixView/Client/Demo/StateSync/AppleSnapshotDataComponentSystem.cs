@@ -27,7 +27,7 @@ namespace ET.Client
                 UnitComponent unitComponent = self.DomainScene().CurrentScene().GetComponent<UnitComponent>();
                 if (unitComponent != null && snapshort != null && snapshort.OtherUnits != null && snapshort.OtherUnits.Count > 0)
                 {
-                    if (self.AuthFrameCount + self.FrameInterval >= Time.frameCount)
+                    if (self.AuthFrameCount + 1 < Time.frameCount)
                     { 
                         float ratio = (float)(Time.frameCount - self.AuthFrameCount) / self.FrameInterval;
                         foreach (var kv in snapshort.OtherUnits)
