@@ -26,7 +26,7 @@ namespace ET.Server
 			heatBeatComponent.Add(player);
 			session.AddComponent<SessionPlayerComponent>().PlayerId = player.Id;
 			session.AddComponent<MailBoxComponent, MailboxType>(MailboxType.GateSession);
-
+			
 			response.PlayerId = player.Id;
 			await ETTask.CompletedTask;
 		}
