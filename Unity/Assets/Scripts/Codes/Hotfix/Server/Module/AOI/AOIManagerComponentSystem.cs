@@ -47,6 +47,8 @@ namespace ET.Server
             // 通知订阅该Cell Enter的Unit
             foreach (KeyValuePair<long, AOIEntity> kv in selfCell.SubsEnterEntities)
             {
+                if(kv.Key == aoiEntity.Id)
+                    continue;
                 kv.Value.EnterSight(aoiEntity);
             }
         }
