@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using YooAsset;
 
 namespace ET.Client
 {
@@ -6,68 +8,112 @@ namespace ET.Client
     public static class ResourcesLoaderComponentSystem
     {
         [ObjectSystem]
+        public class ResourceLoadedComponentAwakeSystem : AwakeSystem<ResourcesLoaderComponent>
+        {
+            protected override void Awake(ResourcesLoaderComponent self)
+            {
+                self.package = YooAssets.GetPackage("DefaultPackage");
+            }
+        }
+        [ObjectSystem]
+        public class ResourceLoadedComponentAwakeWithInfoSystem : AwakeSystem<ResourcesLoaderComponent,string>
+        {
+            protected override void Awake(ResourcesLoaderComponent self,string packageName)
+            {
+                self.package = YooAssets.GetPackage(packageName);
+            }
+        }
+        [ObjectSystem]
             public class ResourcesLoaderComponentDestroySystem: DestroySystem<ResourcesLoaderComponent>
             {
                 protected override void Destroy(ResourcesLoaderComponent self)
                 {
-                    async ETTask UnLoadAsync()
+                    foreach (var kv in self.handlers)
                     {
-                        using (ListComponent<string> list = ListComponent<string>.Create())
+                        switch (kv.Value)
                         {
-                            list.AddRange(self.LoadedResource);
-                            self.LoadedResource = null;
-        
-                            if (TimerComponent.Instance == null)
-                            {
-                                return;
-                            }
-                            
-                            // 延迟5秒卸载包，因为包卸载是引用计数，5秒之内假如重新有逻辑加载了这个包，那么可以避免一次卸载跟加载
-                            await TimerComponent.Instance.WaitAsync(5000);
-        
-                            foreach (string abName in list)
-                            {
-                                using CoroutineLock coroutineLock =
-                                        await CoroutineLockComponent.Instance.Wait(CoroutineLockType.ResourcesLoader, abName.GetHashCode(), 0);
+                            case AssetOperationHandle handle:
+                                handle.Release();
+                                break;
+                            case AllAssetsOperationHandle handle:
+                                handle.Release();
+                                break;
+                            case SubAssetsOperationHandle handle:
+                                handle.Release();
+                                break;
+                            case RawFileOperationHandle handle:
+                                handle.Release();
+                                break;
+                            case SceneOperationHandle handle:
+                                if (!handle.IsMainScene())
                                 {
-                                    if (ResourcesComponent.Instance == null)
-                                    {
-                                        return;
-                                    }
-        
-                                    await ResourcesComponent.Instance.UnloadBundleAsync(abName);
+                                    handle.UnloadAsync();
                                 }
-                            }
+                                break;
                         }
                     }
-        
-                    UnLoadAsync().Coroutine();
                 }
             }
-        
-        public static async ETTask LoadAsync(this ResourcesLoaderComponent self, string ab)
+            
+        public static async ETTask<T> LoadAssetAsync<T>(this ResourcesLoaderComponent self, string location) where T: UnityEngine.Object
         {
-            using CoroutineLock coroutineLock = await CoroutineLockComponent.Instance.Wait(CoroutineLockType.ResourcesLoader, ab.GetHashCode(), 0);
-                    
-            if (self.IsDisposed)
+            using CoroutineLock coroutineLock = await CoroutineLockComponent.Instance.Wait(CoroutineLockType.ResourcesLoader, location.GetHashCode());
+            
+            OperationHandleBase handler;
+            if (!self.handlers.TryGetValue(location, out handler))
             {
-                Log.Error($"resourceload already disposed {ab}");
+                handler = self.package.LoadAssetAsync<T>(location);
+            
+                await handler.Task;
+
+                self.handlers.Add(location, handler);
+            }
+            
+            return (T)((AssetOperationHandle)handler).AssetObject;
+        }
+        public static async ETTask<Dictionary<string, T>> LoadAllAssetsAsync<T>(this ResourcesLoaderComponent self, string location) where T: UnityEngine.Object
+        {
+            using CoroutineLock coroutineLock = await CoroutineLockComponent.Instance.Wait(CoroutineLockType.ResourcesLoader, location.GetHashCode());
+
+            OperationHandleBase handler;
+            if (!self.handlers.TryGetValue(location, out handler))
+            {
+                handler = self.package.LoadAllAssetsAsync<T>(location);
+            
+                await handler.Task;
+                self.handlers.Add(location, handler);
+            }
+
+            Dictionary<string, T> dictionary = new Dictionary<string, T>();
+            foreach(UnityEngine.Object assetObj in ((AllAssetsOperationHandle)handler).AllAssetObjects)
+            {    
+                T t = assetObj as T;
+                dictionary.Add(t.name, t);
+            }
+            return dictionary;
+        }
+        public static async ETTask LoadSceneAsync(this ResourcesLoaderComponent self, string location, LoadSceneMode loadSceneMode)
+        {
+            using CoroutineLock coroutineLock = await CoroutineLockComponent.Instance.Wait(CoroutineLockType.ResourcesLoader, location.GetHashCode());
+
+            OperationHandleBase handler;
+            if (self.handlers.TryGetValue(location, out handler))
+            {
                 return;
             }
 
-            if (self.LoadedResource.Contains(ab))
-            {
-                return;
-            }
+            handler = self.package.LoadSceneAsync(location);
 
-            self.LoadedResource.Add(ab);
-            await ResourcesComponent.Instance.LoadBundleAsync(ab);
+            await handler.Task;
+            self.handlers.Add(location, handler);
         }
     }
     
     [ComponentOf(typeof(Scene))]
-    public class ResourcesLoaderComponent: Entity, IAwake, IDestroy
+    public class ResourcesLoaderComponent: Entity, IAwake,IAwake<string>, IDestroy
     {
-        public HashSet<string> LoadedResource = new HashSet<string>();
+        
+        public ResourcePackage package;
+        public Dictionary<string, OperationHandleBase> handlers = new();
     }
 }

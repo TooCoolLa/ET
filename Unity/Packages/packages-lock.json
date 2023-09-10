@@ -14,17 +14,22 @@
       "dependencies": {},
       "hash": "09eb5f1535d0d01dee98c84fa110c21a436bd896"
     },
-    "com.tuyoogame.yooasset": {
-      "version": "1.5.1",
+    "com.gwiazdorrr.betterstreamingassets": {
+      "version": "file:betterstreamingassets",
       "depth": 0,
-      "source": "registry",
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.tuyoogame.yooasset": {
+      "version": "file:YooAsset",
+      "depth": 0,
+      "source": "embedded",
       "dependencies": {
         "com.unity.scriptablebuildpipeline": "1.20.2",
         "com.unity.modules.assetbundle": "1.0.0",
         "com.unity.modules.unitywebrequest": "1.0.0",
         "com.unity.modules.unitywebrequestassetbundle": "1.0.0"
-      },
-      "url": "https://package.openupm.com"
+      }
     },
     "com.unity.burst": {
       "version": "1.8.4",

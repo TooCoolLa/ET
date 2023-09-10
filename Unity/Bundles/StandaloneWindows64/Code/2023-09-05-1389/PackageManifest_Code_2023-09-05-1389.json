@@ -1,0 +1,137 @@
+{
+    "FileVersion": "1.4.17",
+    "EnableAddressable": true,
+    "LocationToLower": true,
+    "IncludeAssetGUID": true,
+    "OutputNameStyle": 4,
+    "PackageName": "Code",
+    "PackageVersion": "2023-09-05-1389",
+    "AssetList": [
+        {
+            "Address": "Hotfix.dll",
+            "AssetPath": "Assets/Bundles/Code/Hotfix.dll.bytes",
+            "AssetGUID": "08da12a649e0d3044acb5b35c95674bd",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependIDs": []
+        },
+        {
+            "Address": "Hotfix.pdb",
+            "AssetPath": "Assets/Bundles/Code/Hotfix.pdb.bytes",
+            "AssetGUID": "5b59e4b01416e95418d683ead1137091",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependIDs": []
+        },
+        {
+            "Address": "Model.dll",
+            "AssetPath": "Assets/Bundles/Code/Model.dll.bytes",
+            "AssetGUID": "1e2ea3749b6e0b2429155282f7e941bc",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependIDs": []
+        },
+        {
+            "Address": "Model.pdb",
+            "AssetPath": "Assets/Bundles/Code/Model.pdb.bytes",
+            "AssetGUID": "625e17a2705b7014b88d3de1b82dde45",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependIDs": []
+        },
+        {
+            "Address": "CommandLine.dll",
+            "AssetPath": "Assets/Bundles/AotDlls/CommandLine.dll.bytes",
+            "AssetGUID": "bde19bc129939f54497188bd2e63f248",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependIDs": []
+        },
+        {
+            "Address": "MongoDB.Bson.dll",
+            "AssetPath": "Assets/Bundles/AotDlls/MongoDB.Bson.dll.bytes",
+            "AssetGUID": "307315762c9331046a87ddc719a77453",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependIDs": []
+        },
+        {
+            "Address": "mscorlib.dll",
+            "AssetPath": "Assets/Bundles/AotDlls/mscorlib.dll.bytes",
+            "AssetGUID": "95b0f91ec29345b4f9d1ff4cc7f8697a",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependIDs": []
+        },
+        {
+            "Address": "NLog.dll",
+            "AssetPath": "Assets/Bundles/AotDlls/NLog.dll.bytes",
+            "AssetGUID": "55e514d1b1aa35e458dd692b4cf491ae",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependIDs": []
+        },
+        {
+            "Address": "System.Core.dll",
+            "AssetPath": "Assets/Bundles/AotDlls/System.Core.dll.bytes",
+            "AssetGUID": "a3fd6937b133f924784a0c3a6bce6562",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependIDs": []
+        },
+        {
+            "Address": "System.dll",
+            "AssetPath": "Assets/Bundles/AotDlls/System.dll.bytes",
+            "AssetGUID": "325c1580f4ea16247b6e2d51fb437241",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependIDs": []
+        },
+        {
+            "Address": "Unity.Core.dll",
+            "AssetPath": "Assets/Bundles/AotDlls/Unity.Core.dll.bytes",
+            "AssetGUID": "b2ace2b320cbbef43b66552c36780164",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependIDs": []
+        },
+        {
+            "Address": "Unity.Loader.dll",
+            "AssetPath": "Assets/Bundles/AotDlls/Unity.Loader.dll.bytes",
+            "AssetGUID": "175e89d303d7812408eee9408fc93438",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependIDs": []
+        },
+        {
+            "Address": "Unity.ThirdParty.dll",
+            "AssetPath": "Assets/Bundles/AotDlls/Unity.ThirdParty.dll.bytes",
+            "AssetGUID": "b4890a48b3d922a45a63175b1f00f749",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependIDs": []
+        }
+    ],
+    "BundleList": [
+        {
+            "BundleName": "code_assets_bundles_code.bundle",
+            "FileHash": "e8126bc790fdad1ce1d22b4c2295fe0b",
+            "FileCRC": "108702ad",
+            "FileSize": 146940,
+            "IsRawFile": false,
+            "LoadMethod": 0,
+            "Tags": [],
+            "ReferenceIDs": []
+        },
+        {
+            "BundleName": "code_assets_bundles_aotdlls.bundle",
+            "FileHash": "933340cf023989340d1367e82ddd45f9",
+            "FileCRC": "c71ebb60",
+            "FileSize": 4086540,
+            "IsRawFile": false,
+            "LoadMethod": 0,
+            "Tags": [],
+            "ReferenceIDs": []
+        }
+    ]
+}

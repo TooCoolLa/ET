@@ -32,6 +32,10 @@ namespace ET
             instance = (T)this;
         }
 
+        protected virtual void OnDestroy()
+        {
+            
+        }
         void ISingleton.Destroy()
         {
             if (this.isDisposed)
@@ -42,6 +46,7 @@ namespace ET
             
             instance.Dispose();
             instance = null;
+            this.OnDestroy();
         }
 
         bool ISingleton.IsDisposed()

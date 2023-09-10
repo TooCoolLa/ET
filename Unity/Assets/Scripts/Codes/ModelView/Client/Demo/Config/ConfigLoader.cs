@@ -6,9 +6,9 @@ using UnityEngine;
 namespace ET.Client
 {
     [Invoke]
-    public class GetAllConfigBytes: AInvokeHandler<ConfigComponent.GetAllConfigBytes, Dictionary<Type, byte[]>>
+    public class GetAllConfigBytes: AInvokeHandler<ConfigComponent.GetAllConfigBytes,ETTask<Dictionary<Type, byte[]>>>
     {
-        public override Dictionary<Type, byte[]> Handle(ConfigComponent.GetAllConfigBytes args)
+        public override async ETTask<Dictionary<Type, byte[]>>  Handle(ConfigComponent.GetAllConfigBytes args)
         {
             Dictionary<Type, byte[]> output = new Dictionary<Type, byte[]>();
             HashSet<Type> configTypes = EventSystem.Instance.GetTypes(typeof (ConfigAttribute));
@@ -55,16 +55,10 @@ namespace ET.Client
             }
             else
             {
-                using (Root.Instance.Scene.AddComponent<ResourcesComponent>())
+                foreach (Type type in configTypes)
                 {
-                    const string configBundleName = "config.unity3d";
-                    ResourcesComponent.Instance.LoadBundle(configBundleName);
-                    
-                    foreach (Type configType in configTypes)
-                    {
-                        TextAsset v = ResourcesComponent.Instance.GetAsset(configBundleName, configType.Name) as TextAsset;
-                        output[configType] = v.bytes;
-                    }
+                    TextAsset v = await ResourcesComponent.Instance.LoadAssetAsync<TextAsset>($"Assets/Bundles/Config/{type.Name}.bytes");
+                    output[type] = v.bytes;
                 }
             }
 
@@ -73,13 +67,51 @@ namespace ET.Client
     }
     
     [Invoke]
-    public class GetOneConfigBytes: AInvokeHandler<ConfigComponent.GetOneConfigBytes, byte[]>
+    public class GetOneConfigBytes: AInvokeHandler<ConfigComponent.GetOneConfigBytes,ETTask< byte[]>>
     {
-        public override byte[] Handle(ConfigComponent.GetOneConfigBytes args)
+        public override async ETTask<byte[]> Handle(ConfigComponent.GetOneConfigBytes args)
         {
             //TextAsset v = ResourcesComponent.Instance.GetAsset("config.unity3d", configName) as TextAsset;
             //return v.bytes;
-            throw new NotImplementedException("client cant use LoadOneConfig");
+            string ct = "cs";
+            GlobalConfig globalConfig = Resources.Load<GlobalConfig>("GlobalConfig");
+            CodeMode codeMode = globalConfig.CodeMode;
+            switch (codeMode)
+            {
+                case CodeMode.Client:
+                    ct = "c";
+                    break;
+                case CodeMode.Server:
+                    ct = "s";
+                    break;
+                case CodeMode.ClientServer:
+                    ct = "cs";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            List<string> startConfigs = new List<string>()
+            {
+                "StartMachineConfigCategory", 
+                "StartProcessConfigCategory", 
+                "StartSceneConfigCategory", 
+                "StartZoneConfigCategory",
+            };
+
+            string configName = args.ConfigName;
+    
+            string configFilePath;
+            if (startConfigs.Contains(configName))
+            {
+                configFilePath = $"../Config/Excel/{ct}/{Options.Instance.StartConfig}/{configName}.bytes";    
+            }
+            else
+            {
+                configFilePath = $"../Config/Excel/{ct}/{configName}.bytes";
+            }
+
+            await ETTask.CompletedTask;
+            return File.ReadAllBytes(configFilePath);
         }
     }
 }

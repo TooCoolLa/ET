@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowPackageView: 1
   EnableAddressable: 1
-  LocationToLower: 1
+  LocationToLower: 0
   IncludeAssetGUID: 1
   UniqueBundleName: 1
   ShowEditorAlias: 1
@@ -27,14 +27,6 @@ MonoBehaviour:
       AssetTags: 
       ActiveRuleName: EnableGroup
       Collectors:
-      - CollectPath: Assets/Bundles/UI
-        CollectorGUID: 3a57d524d1e0d7543828b2ac7273f608
-        CollectorType: 0
-        AddressRuleName: AddressByFileName
-        PackRuleName: PackDirectory
-        FilterRuleName: CollectAll
-        AssetTags: 
-        UserData: 
       - CollectPath: Assets/Bundles/Unit
         CollectorGUID: c3561f86a9d0b324680975876c94ca05
         CollectorType: 0
@@ -51,6 +43,43 @@ MonoBehaviour:
         FilterRuleName: CollectAll
         AssetTags: 
         UserData: 
-  - PackageName: Code
-    PackageDesc: 
-    Groups: []
+      - CollectPath: Assets/Bundles/AotDlls
+        CollectorGUID: 2a1eb6002463a8641963bc81cab0cdd5
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
+      - CollectPath: Assets/Bundles/Code
+        CollectorGUID: 55d9010d6a87934468703901aa518c85
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
+      - CollectPath: Assets/Bundles/UI
+        CollectorGUID: 3a57d524d1e0d7543828b2ac7273f608
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
+      - CollectPath: Assets/Scenes/Map1.unity
+        CollectorGUID: a5294483f20f40d449699101bb428cda
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
+      - CollectPath: Assets/Scenes/Map2.unity
+        CollectorGUID: 064123f1e5067b249a9fd8967ddbde09
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 

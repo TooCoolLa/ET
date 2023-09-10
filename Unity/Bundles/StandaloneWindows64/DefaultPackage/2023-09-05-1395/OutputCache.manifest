@@ -1,0 +1,27 @@
+ManifestFileVersion: 0
+CRC: 859274144
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: defaultpackage_assets_bundles_unit.bundle
+      Dependencies:
+        Dependency_0: defaultpackage_unityshaders.bundle
+    Info_1:
+      Name: defaultpackage_assets_bundles_config.bundle
+      Dependencies: {}
+    Info_2:
+      Name: defaultpackage_assets_bundles_aotdlls.bundle
+      Dependencies: {}
+    Info_3:
+      Name: defaultpackage_assets_bundles_code.bundle
+      Dependencies: {}
+    Info_4:
+      Name: defaultpackage_assets_bundles_ui.bundle
+      Dependencies: {}
+    Info_5:
+      Name: defaultpackage_assets_scenes.bundle
+      Dependencies:
+        Dependency_0: defaultpackage_unityshaders.bundle
+    Info_6:
+      Name: defaultpackage_unityshaders.bundle
+      Dependencies: {}

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using YooAsset;
 namespace ET
 {
     public enum CodeMode
@@ -13,5 +13,6 @@ namespace ET
     public class GlobalConfig: ScriptableObject
     {
         public CodeMode CodeMode;
+        public EPlayMode EPlayMode;
     }
 }

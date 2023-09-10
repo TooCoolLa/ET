@@ -1,0 +1,10 @@
+ManifestFileVersion: 0
+CRC: 3762601787
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: code_assets_bundles_code.bundle
+      Dependencies: {}
+    Info_1:
+      Name: code_assets_bundles_aotdlls.bundle
+      Dependencies: {}

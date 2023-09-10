@@ -5,9 +5,9 @@ using System.IO;
 namespace ET.Server
 {
     [Invoke]
-    public class GetAllConfigBytes: AInvokeHandler<ConfigComponent.GetAllConfigBytes, Dictionary<Type, byte[]>>
+    public class GetAllConfigBytes: AInvokeHandler<ConfigComponent.GetAllConfigBytes,ETTask< Dictionary<Type, byte[]>>>
     {
-        public override Dictionary<Type, byte[]> Handle(ConfigComponent.GetAllConfigBytes args)
+        public override async ETTask<Dictionary<Type, byte[]>> Handle(ConfigComponent.GetAllConfigBytes args)
         {
             Dictionary<Type, byte[]> output = new Dictionary<Type, byte[]>();
             List<string> startConfigs = new List<string>()
@@ -32,16 +32,18 @@ namespace ET.Server
                 output[configType] = File.ReadAllBytes(configFilePath);
             }
 
+            await ETTask.CompletedTask;
             return output;
         }
     }
     
     [Invoke]
-    public class GetOneConfigBytes: AInvokeHandler<ConfigComponent.GetOneConfigBytes, byte[]>
+    public class GetOneConfigBytes: AInvokeHandler<ConfigComponent.GetOneConfigBytes,ETTask<byte[]>>
     {
-        public override byte[] Handle(ConfigComponent.GetOneConfigBytes args)
+        public override async ETTask<byte[]>  Handle(ConfigComponent.GetOneConfigBytes args)
         {
             byte[] configBytes = File.ReadAllBytes($"../Config/{args.ConfigName}.bytes");
+            await ETTask.CompletedTask;
             return configBytes;
         }
     }

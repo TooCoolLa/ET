@@ -1,0 +1,55 @@
+{
+    "FileVersion": "1.4.17",
+    "EnableAddressable": true,
+    "LocationToLower": true,
+    "IncludeAssetGUID": true,
+    "OutputNameStyle": 4,
+    "PackageName": "Scene",
+    "PackageVersion": "2023-09-05-1389",
+    "AssetList": [
+        {
+            "Address": "Map1",
+            "AssetPath": "Assets/Scenes/Map1.unity",
+            "AssetGUID": "a5294483f20f40d449699101bb428cda",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependIDs": [
+                1
+            ]
+        },
+        {
+            "Address": "Map2",
+            "AssetPath": "Assets/Scenes/Map2.unity",
+            "AssetGUID": "064123f1e5067b249a9fd8967ddbde09",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependIDs": [
+                1
+            ]
+        }
+    ],
+    "BundleList": [
+        {
+            "BundleName": "scene_assets_scenes.bundle",
+            "FileHash": "080fa8b26596f2aae1bdfeb25c3d8034",
+            "FileCRC": "a7e1c34c",
+            "FileSize": 2125329,
+            "IsRawFile": false,
+            "LoadMethod": 0,
+            "Tags": [],
+            "ReferenceIDs": []
+        },
+        {
+            "BundleName": "scene_unityshaders.bundle",
+            "FileHash": "31f0d285077c3dc9fd1eb244990b0de9",
+            "FileCRC": "6e78b430",
+            "FileSize": 41707,
+            "IsRawFile": false,
+            "LoadMethod": 0,
+            "Tags": [],
+            "ReferenceIDs": [
+                0
+            ]
+        }
+    ]
+}

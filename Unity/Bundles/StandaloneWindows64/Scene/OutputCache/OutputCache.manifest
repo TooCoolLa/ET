@@ -1,0 +1,11 @@
+ManifestFileVersion: 0
+CRC: 2545042000
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: scene_assets_scenes.bundle
+      Dependencies:
+        Dependency_0: scene_unityshaders.bundle
+    Info_1:
+      Name: scene_unityshaders.bundle
+      Dependencies: {}

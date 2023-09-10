@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEngine;
+using YooAsset;
 using Debug = UnityEngine.Debug;
 
 namespace ET
@@ -116,7 +117,7 @@ namespace ET
 			GUILayout.Label("Code Compile：");
 			
 			this.globalConfig.CodeMode = (CodeMode)EditorGUILayout.EnumPopup("CodeMode: ", this.globalConfig.CodeMode);
-			
+			this.globalConfig.EPlayMode = (EPlayMode)EditorGUILayout.EnumPopup("EPlayMode:", this.globalConfig.EPlayMode);
 			if (GUILayout.Button("BuildModelAndHotfix"))
 			{
 				if (Define.EnableCodes)
