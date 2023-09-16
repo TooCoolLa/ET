@@ -1,5 +1,6 @@
 ﻿using System;
 using Unity.Mathematics;
+using Random = Unity.Mathematics.Random;
 
 namespace ET.Server
 {
@@ -19,10 +20,11 @@ namespace ET.Server
 				Entity entity = MongoHelper.Deserialize<Entity>(bytes);
 				unit.AddComponent(entity);
 			}
-			
+
+			var random = unitComponent.GetRandom();
 			unit.AddComponent<MoveComponent>();
 			unit.AddComponent<PathfindingComponent, string>(scene.Name);
-			unit.Position = new float3(-10, 0, -10);
+			unit.Position = new float3(random.NextFloat(-1000,1000), 0, random.NextFloat(-1000,1000));
 			
 			unit.AddComponent<MailBoxComponent>();
 
